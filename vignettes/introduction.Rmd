@@ -1,0 +1,262 @@
+---
+title: "oliveR: DNA methylation microarray functionalities for sequencing-based data"
+subtitle: "Andy Madrid"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## General Usage
+This is a short introduction to the general functionality of the oliveR package. In short, this package takes a bsseq object, and performs a plethora of functionalities that were developed for DNA methlyation microarray data. These include estimating age (epigenetic age), guessing the sex of samples, identifying lowly-methylated regions (LMRs), identifiyng stochastic epigenetic mutations (SEMs), identifying imprinted control regions (ICRs), among other utilities.
+
+
+
+Let's start by installing some packages that are needed to install and run the madrid package.
+
+## Installation
+```{r, eval=FALSE}
+### Install required packages
+install.packages("devtools")
+library(devtools)
+
+### install the oliveR package
+install_github("andymadrid/oliveR")
+
+
+```
+
+Now we can load the oliveR package.
+
+## Setup
+```{r}
+# load in the oliveR pacakge
+library(oliveR)
+
+
+```
+Now we can load in a toy dataset.
+
+```{r}
+# get toy example
+data(bs)
+
+
+```
+Let us take a look at this toy example.
+
+```{r}
+# summary of bsseq object
+bs
+
+# summary of phenotypic data associated with bsseq object
+pData(bs)
+
+
+```
+We see we have 10 samples. Due to size limitations, this bsseq object only has the CpGs used to predict age, along with CpGs from the sex chromosomes. However, for your purposes, there is no need to remove any CpGs from your bsseq object. In fact, that is not advised.
+
+The bsseq object also has some phenotypic data for the samples, which includes the age, sex, and (pseudo) diagnostic group for each.
+
+
+## Guess sex of samples
+
+Now we can attempt to guess the sex of the samples.
+
+```{r}
+# guess sample sex from bsseq object
+guessed_sex <- guessSex(bs)
+
+# look at the output
+guessed_sex
+
+
+```
+We see that the guessed sex matches up nicely with the actual sex of the samples. 
+
+## Predict age
+
+Now lets predict the age of the samples using the Methylation Age Determination via Read-Informed Data (MADRID) madrid() function.
+```{r}
+# predict age from bsseq object
+predicted_age <- madrid(bs)
+
+# look at the output
+predicted_age
+
+
+```
+This outputs the predicted ages for each sample. We can also see how well they correlate with the actual ages, if that information is readily available.
+
+Please note, by default the madrid() function will estimate age using array-based clocks, as well as the sequencing-based clock. To do this, it leans heavily on two other packages, methylclock, wateRmelon and DunedinPACE. At its core, for this portion of the function, it really just formats the methylation matrix accordingly and filters CpGs to only those on the arrays. In this toy example most of the ages look off due to the fact that most CpGs are missing because of size limitations. That being said, in your own data, estimates should (hopefully) be more accurate.
+```{r}
+# assess the correlation between actual and estimated age
+corMADRID <- cor(predicted_age$MADRID_Age, pData(bs)$Age)
+corMADRID
+
+```
+
+### Test for differences
+We see that we have a fairly nice correlation between predicted and actual age. And that's really all that there is to it. You can take these results and see if there are any signficiant differences between the estimated and actual age of samples between groups.
+
+
+```{r}
+# test for differences (accelerated/decelerated) in actual and estimated age
+predicted_age$difference <- predicted_age$MADRID_Age - pData(bs)$Age
+
+t.test(predicted_age$difference ~ factor(pData(bs)$Diagnosis))
+
+
+```
+Some people prefer to run the test on the residuals, rather than on the direct differences in age themselves. That would look something like this...
+
+```{r}
+# test for differences in the resduals between actual and estimated age
+predicted_age$residuals <- resid(lm(predicted_age$MADRID_Age ~ pData(bs)$Age))
+t.test(predicted_age$residuals ~ factor(pData(bs)$Diagnosis))
+
+
+```
+
+I'd like to note that a Kruskall-Wallis test or something like a generalized linear model that adjusts for known covariates would probably be a more approporiate test to use, but for the sake of demonstration a simple t-test is utilized here.
+
+That being said, in this toy example there is no signficant difference (accelerated or decelerated) in predicted age between groups. Hopefully in your data there will be, though!
+
+
+### Estimate cell-type proportions of blood samples
+
+If you're using blood or saliva samples, we can also estimate the cell-type proportions from your sequenced data. The function estimateCellProps() leans heavily upon the R package meffil to perform these calculations. In testing, I had some samples that were run on the EPIC microarray and had the exact same DNA extracts also sequenced and found that this method produced results that were more correlated with each other than other methods that were developed for sequence data (e.g., methylcc).
+
+
+```{r, eval=FALSE}
+# estimate cell-type proportions from blood samples
+cellProps <- estimateCellProps(bs)
+
+# check the estimates
+head(cellProps)
+
+```
+
+Please note, the above code is not actually run since the bsseq object we have here for the demonstration does not have the sufficient CpGs needed estimate cell-type proportions and would throw out an error. But, assuming your bsseq object has all the CpGs, that shouldn't be an issue for you!
+
+
+### Convert hg19 (or hg38) coordinates to hg38 (or hg19)
+When working with human data, people often align to one of two genome builds - either hg19 or hg38. Nowadays, people pretty much just align to hg38. But, on the off chance that you aligned to hg19 or are using old data that was aligned to hg19, or if you want to convert your hg38 coordinates to hg19 for whatever reason, I've implemented a function to do just that. See below:
+
+```{r}
+# lift coordinates from hg38 to hg19
+bsLifted <- liftBuild(bs, current = "hg38", new = "hg19")
+
+# check the lifted coordinates
+bsLifted
+
+```
+
+### Imprinted regions
+
+If you happen to have some regions of interest, such as differentially methylated regions (DMRs), we can also check the overlap between those segments of the genome and those known to be imprinted. For more information on how these imprinted regions were identified, please refer to Jima et al (2022) Epigenetics.
+
+```{r}
+# load in DMR GRanges object
+data(dmrs)
+
+# take a look at the DMRs
+dmrs
+
+# overlap with the imprintome
+dmrsImprinted <- imprintMe(dmrs)
+
+# look at the output
+dmrsImprinted
+
+```
+For this to work, your regions should be a GRanges object, with coordinates stemming from the hg38 version of the human genome. The output is a GRanges object, with information on the imprinted regions added to the metadata of your regions that were found to overlap with them.
+
+Please note, I can't really make a function to test for enrichment (e.g., Fisher's exact test) of your regions in imprinted regions, as that would require having the background regions from both where your DMRs/regions came from, and from those used to identify the imprinted regions - which I do not have, unforunately.
+
+### Identify ICRs
+
+While you can overlap your selected regions with those of the putative ICRs, a new function has been added that allows you to identify putative ICRs in your own dataset. The function findICRs() looks through your dataset and tries to identify ICRs which, by default, are regions with >= 5 consecutive CpGs all with methylation levels ranging from 35-65% in all the CpGs, in all the samples. Let's test it out and see how it works.
+
+```{r, eval=FALSE}
+# identify ICRs in toy dataset
+icrs <- findICRs(bs)
+
+# take a look at the ICRs
+icrs
+
+```
+The above code is not actually run due to the toy dataset being just a subste of the genome. As such, we wouldn't necessarily expect to see any ICRs, in this case.
+
+### Stochastic epigenetic mutations (SEMs)
+
+While epigenetic age is the main function of this package, I've also added in a function to identify stochastic epigenetic mutations (SEMs). For more information on SEMs please refer to Gentilini et al (2015) Aging and Markov et al (2024) GeroScience.
+
+Essentially, this function takes your data, identifies the interquartile range (IQR) for each CpG, then sees if there are any samples (for a given CpG) that has an extremely high (Q3 + 3*IQR) or extremely low (Q1 - 3*IQR) methylation level, and adds them all up. Before you use this function I would like to preface it by saying that in its current iteration it is extremely slow. Moreover, if you choose to save the outputs (e.g., the identified SEMs for each individual sample), it can take up a lot of disk space. So, just fair warning on that. Either way, here's how to use it:
+
+```{r}
+# detect SEMs
+#sampleSEMs <- findSEMs(bs, minSamples = 10) # setting samples to 10 for demo, but >50 is recommended for actual use
+
+
+# check the output
+sampleSEMs
+
+# check to see if there are any differences between groups
+t.test(sampleSEMs$log10SEMs ~ factor(pData(bs)$Diagnosis))
+
+```
+
+You'll notice that a portion of the script is commented out. That was done to speed things up. I will be honest and say that this function is pretty slow. If there's a future need for it, I can work on speeding it up. But for now, I'll leave it as is.
+
+And that's all there is to it! Similar to above, a Kruskall-Wallis  test or glm would probably be more appropriate for your own data. Just keep that in mind!
+
+### Lowly Methylated Regions (LMRs)
+
+Lowly methylated regions (LMRs) are regions of the genome that exhibit non-zero, intermediate levels of methylation - often < 50% methylation. Unlike partially methlyated domains that can span >100kb, LMRs are more localized. LMRs typically are not located in CpG islands and, often times, contain transcription factor binding motifs, suggesting that they can be regulatory elements that define and maintain cellular identify. Changes in LMRs have been associated in a plethora of human diseases/disorders/phenomena, such as mutation rate hetergeneity (Mas-Ponte et al (2024) Nucleic Acids Research), breast cancer (Fernandez-Jimenez et al (2017) Epigenetics), and embryonic development (Yizhar-Barnea et al (2018) Scientific Reports). As such, a function, findLMRs(), has been introduced here to identify LMRs in your samples. To do this, the function leans on R package MethylSeekR to do most of the heavy lifting, such as identifying PMDs and training the HMM to then find LMRs. This is done sample-by-sample. We can take a look at how one would go about looking for LMRs in their own dataset.
+
+```{r, eval=FALSE}
+# Identify LMRs
+lmrs <- findLMRs(bs)
+
+# take a look at LMRs
+lmrs
+
+```
+Downstream analyses can include finding LMRs that are common amongst your samples in the same treatment groups, and find those that are unique to each treatment group.
+
+### Estimate smoking
+
+As was developed for array-based DNA methylation datasets, we can also estimate smoking status using sequencing-based DNA methylation data. The function guessSmoking() takes a bsseq object then leans on the R package wateRmelon to estimate smoking status. By default, the function guesses "packyears" but can be changed to look at other smoking measures. See wateRmelon::smokp() for other available methods/references.
+
+```{r}
+# guess smoking status
+smoking <- guessSmoking(bs)
+
+# look at the results
+smoking
+
+```
+
+As this is just a subset of CpGs in the toy dataset, smoking status cannot be calculated. But, in your own dataset which should hopefully have jsut about every CpG in it, the function should be able to estimate smoking status from your samples.
+
+### Coverage
+
+The biggest issue that I have run into while developing this package has been coverage. For reliable, robust results, higher coverage from sequencing data is needed. While testing, I found several datasets that had ~1x genome-wide coverage. As such, estimates for age, sex, LMRs, SEMs either would highly inaccurate, or were unable to be computed. This is one of the major drawbacks of sequencing data, relative to the array where most samples have useable data on just about every CpG tested on the array. Several imputation methods are utilized in the functions throuhgout the package, but those can only do so much. So, just be wary of that fact. As with most sequencing-based analyses: higher coverage gives better, more robust, and more accurate/reliable results.
+
+### Summary
+
+Hopefully this package works well for you and your purposes. If there is some functionality that you would like implemented, please do not hesitate to email me at madrid2[at]wisc.edu.
+
+Good luck out there!
+
+-AM
+
