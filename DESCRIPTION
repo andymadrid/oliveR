@@ -1,0 +1,21 @@
+Package: oliveR
+Title: Predict age from sequence-based data
+Version: 0.0.0.9000
+Authors@R: 
+    person("Andy", "Madrid", , "madrid2@wisc.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: oliveR: an R package of DNA methylation microarray functionalities for sequencing-based data
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: bsseq, glmnet, mice, wateRmelon, impute, AnnotationHub, rtracklayer, GenomicRanges, dplyr, MatrixGenerics, methylclock, tibble
+Depends: bsseq, glmnet, mice, wateRmelon, impute, AnnotationHub, rtracklayer, GenomicRanges, dplyr, MatrixGenerics, methylclock, tibble
+LazyData: true
+GithubRepo: olveR
+GithubUsername: andyamadrid
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
