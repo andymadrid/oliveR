@@ -10,8 +10,7 @@ As DNA methylation microarrays have been around for awhile now, several function
 ## Vignette
 
 Check out the tutorial of the general functionality of the package at:
-
-http://htmlpreview.github.io/?https://raw.githubusercontent.com/andymadrid/oliveR/main/vignettes/introduction.html
+http://htmlpreview.github.io/?https://raw.githubusercontent.com/andymadrid/oliveR/refs/heads/main/vignettes/introduction.html
 
 ## Sequencing-based data to array-based clocks
 
