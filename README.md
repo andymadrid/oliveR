@@ -38,6 +38,9 @@ The biggest issue that I have run into while developing this package has been co
 ### Genome reference
 Samples used to test and validate this clock were aligned to the human genome (hg38) using the UCSC chromsome naming scheme (e.g,. chr1, chr2, chr3, etc). If you happen to have aligned your samples to, say, hg19, those coordinates will have to be lifted over in order to properly get filtered/selected for the clock to work. I added in a function liftBuild() that does just that.  
 
+## What's in a name?
+You may very well be sitting there (though let's be honest, you're not) and wondering, "what does the name oliveR have to do with DNA methylation?" The answer is a resounding . . . nothing! My dog's name is Olive, and this is an R package. So, through the transitive property, I present you with the R package oliveR! 
+
 ## Questions, concerns, collaborations
 Do you have your own sequencing-based methylation data that you want to build your own clock with? If so, feel free to email me at at madrid2[at]wisc.edu and we can work it out, together. I am always happy to collaborate and/or help! Also, if there's some functinoality that you think would be of great value to add, you can also let me know and I can work on implementing that, as well.
 
