@@ -23,7 +23,7 @@ Your dataset may very well have some missing CpGs for either the sequencing-base
 
 ## Cell-type proportion estimates
 
-I've also included a function (estimateCellCounts()) that takes your sequencing data and estimates cell-type proportions. To do this, it formats and filters data from a bsseq object then leans heavily on the R package meffil to do the calculation. There are other packages out there that do similar things (e.g., methylcc), but I found - through my own testing, using in-house datasets - that this method produced results that were more correlative with array data; correlations between
+I've also included a function (estimateCellProps()) that takes your sequencing data and estimates cell-type proportions. To do this, it formats and filters data from a bsseq object then leans heavily on the R package meffil to do the calculation. There are other packages out there that do similar things (e.g., methylcc), but I found - through my own testing, using in-house datasets - that this method produced results that were more correlative with array data; correlations between
 estimates from samples run on the EPIC array and the same samples that were sequenced were ~0.95.
 
 ## Stochastic epigenetic mutations (SEMs)
