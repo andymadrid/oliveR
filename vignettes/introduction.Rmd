@@ -39,7 +39,7 @@ Now we can load the oliveR package.
 ## Setup
 ```{r}
 # load in the oliveR pacakge
-library(oliveR)
+suppressPackageStartupMessages(library(oliveR))
 
 
 ```
@@ -97,6 +97,9 @@ predicted_age
 This outputs the predicted ages for each sample. We can also see how well they correlate with the actual ages, if that information is readily available.
 
 Please note, by default the madrid() function will estimate age using array-based clocks, as well as the sequencing-based clock. To do this, it leans heavily on two other packages, methylclock, wateRmelon and DunedinPACE. At its core, for this portion of the function, it really just formats the methylation matrix accordingly and filters CpGs to only those on the arrays. In this toy example most of the ages look off due to the fact that most CpGs are missing because of size limitations. That being said, in your own data, estimates should (hopefully) be more accurate.
+
+Please note, if your samples happen to be embryonic, you can set the option gestationalAge to TRUE. In that case, the function will calculate the estimated age using several epigenetic clocks trained on prenatal samples. The estimates will be in "gestational age" for each sample, which is weeks of gestation.
+
 ```{r}
 # assess the correlation between actual and estimated age
 corMADRID <- cor(predicted_age$MADRID_Age, pData(bs)$Age)
@@ -130,6 +133,19 @@ I'd like to note that a Kruskall-Wallis test or something like a generalized lin
 
 That being said, in this toy example there is no signficant difference (accelerated or decelerated) in predicted age between groups. Hopefully in your data there will be, though!
 
+### Telomere length
+
+Telomeres are regions of repetitive DNA sequences harbored at the end of chromosomes. One of the main functions of telomeres is to protect the terminal ends of chromosomes from degredation. However, one thing to note is that the length of telomeres shortens with age which can lead to senescence and apoptosis. As such, shorter telomeres have been linked to increased risk of diseases in humans. A function has been implemented here to estimate telomere lengths from sequencing-based data. Let's take a look at how this would be done.
+
+``` {r, eval = FALSE}
+# estimate telomere lengths
+tls <- estimateTL(bs)
+
+# look at the output
+tls
+
+```
+The above code is not actually run, again, because the toy dataset we're working with does not contain the necessary CpGs used to estimate telomere length. However, in your dataset, that should not be a problem!
 
 ### Estimate cell-type proportions of blood samples
 

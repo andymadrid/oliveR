@@ -367,239 +367,20 @@ and run the madrid package.</p>
 <div id="setup" class="section level2">
 <h2>Setup</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># load in the oliveR pacakge</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(oliveR)</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; Loading required package: bsseq</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; Loading required package: BiocGenerics</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;BiocGenerics&#39;</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt;     IQR, mad, sd, var, xtabs</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt;     anyDuplicated, aperm, append, as.data.frame, basename, cbind,</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt;     colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt;     get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt;     match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt;     Position, rank, rbind, Reduce, rownames, sapply, setdiff, table,</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt;     tapply, union, unique, unsplit, which.max, which.min</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; Loading required package: GenomicRanges</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; Loading required package: stats4</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; Loading required package: S4Vectors</span></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;S4Vectors&#39;</span></span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:utils&#39;:</span></span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#&gt;     findMatches</span></span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span></span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt;     expand.grid, I, unname</span></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; Loading required package: IRanges</span></span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt; Loading required package: GenomeInfoDb</span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; Loading required package: SummarizedExperiment</span></span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt; Loading required package: MatrixGenerics</span></span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt; Loading required package: matrixStats</span></span>
-<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;MatrixGenerics&#39;</span></span>
-<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:matrixStats&#39;:</span></span>
-<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="co">#&gt;     colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,</span></span>
-<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="co">#&gt;     colCounts, colCummaxs, colCummins, colCumprods, colCumsums,</span></span>
-<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="co">#&gt;     colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,</span></span>
-<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="co">#&gt;     colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,</span></span>
-<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="co">#&gt;     colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,</span></span>
-<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="co">#&gt;     colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,</span></span>
-<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="co">#&gt;     colWeightedMeans, colWeightedMedians, colWeightedSds,</span></span>
-<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="co">#&gt;     colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,</span></span>
-<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="co">#&gt;     rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,</span></span>
-<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co">#&gt;     rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,</span></span>
-<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="co">#&gt;     rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,</span></span>
-<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="co">#&gt;     rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,</span></span>
-<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="co">#&gt;     rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,</span></span>
-<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="co">#&gt;     rowWeightedMads, rowWeightedMeans, rowWeightedMedians,</span></span>
-<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="co">#&gt;     rowWeightedSds, rowWeightedVars</span></span>
-<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; Loading required package: Biobase</span></span>
-<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="co">#&gt; Welcome to Bioconductor</span></span>
-<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="co">#&gt;     Vignettes contain introductory material; view with</span></span>
-<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a><span class="co">#&gt;     &#39;browseVignettes()&#39;. To cite Bioconductor, see</span></span>
-<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a><span class="co">#&gt;     &#39;citation(&quot;Biobase&quot;)&#39;, and for packages &#39;citation(&quot;pkgname&quot;)&#39;.</span></span>
-<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;Biobase&#39;</span></span>
-<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:MatrixGenerics&#39;:</span></span>
-<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a><span class="co">#&gt;     rowMedians</span></span>
-<span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:matrixStats&#39;:</span></span>
-<span id="cb2-65"><a href="#cb2-65" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a><span class="co">#&gt;     anyMissing, rowMedians</span></span>
-<span id="cb2-67"><a href="#cb2-67" tabindex="-1"></a><span class="co">#&gt; Loading required package: glmnet</span></span>
-<span id="cb2-68"><a href="#cb2-68" tabindex="-1"></a><span class="co">#&gt; Loading required package: Matrix</span></span>
-<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-70"><a href="#cb2-70" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;Matrix&#39;</span></span>
-<span id="cb2-71"><a href="#cb2-71" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:S4Vectors&#39;:</span></span>
-<span id="cb2-72"><a href="#cb2-72" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-73"><a href="#cb2-73" tabindex="-1"></a><span class="co">#&gt;     expand</span></span>
-<span id="cb2-74"><a href="#cb2-74" tabindex="-1"></a><span class="co">#&gt; Loaded glmnet 4.1-8</span></span>
-<span id="cb2-75"><a href="#cb2-75" tabindex="-1"></a><span class="co">#&gt; Loading required package: mice</span></span>
-<span id="cb2-76"><a href="#cb2-76" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-77"><a href="#cb2-77" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;mice&#39;</span></span>
-<span id="cb2-78"><a href="#cb2-78" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:SummarizedExperiment&#39;:</span></span>
-<span id="cb2-79"><a href="#cb2-79" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-80"><a href="#cb2-80" tabindex="-1"></a><span class="co">#&gt;     cbind, rbind</span></span>
-<span id="cb2-81"><a href="#cb2-81" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:IRanges&#39;:</span></span>
-<span id="cb2-82"><a href="#cb2-82" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-83"><a href="#cb2-83" tabindex="-1"></a><span class="co">#&gt;     cbind, rbind</span></span>
-<span id="cb2-84"><a href="#cb2-84" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:S4Vectors&#39;:</span></span>
-<span id="cb2-85"><a href="#cb2-85" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-86"><a href="#cb2-86" tabindex="-1"></a><span class="co">#&gt;     cbind, rbind</span></span>
-<span id="cb2-87"><a href="#cb2-87" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:BiocGenerics&#39;:</span></span>
-<span id="cb2-88"><a href="#cb2-88" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-89"><a href="#cb2-89" tabindex="-1"></a><span class="co">#&gt;     cbind, rbind</span></span>
-<span id="cb2-90"><a href="#cb2-90" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:stats&#39;:</span></span>
-<span id="cb2-91"><a href="#cb2-91" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-92"><a href="#cb2-92" tabindex="-1"></a><span class="co">#&gt;     filter</span></span>
-<span id="cb2-93"><a href="#cb2-93" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span></span>
-<span id="cb2-94"><a href="#cb2-94" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-95"><a href="#cb2-95" tabindex="-1"></a><span class="co">#&gt;     cbind, rbind</span></span>
-<span id="cb2-96"><a href="#cb2-96" tabindex="-1"></a><span class="co">#&gt; Loading required package: wateRmelon</span></span>
-<span id="cb2-97"><a href="#cb2-97" tabindex="-1"></a><span class="co">#&gt; Loading required package: limma</span></span>
-<span id="cb2-98"><a href="#cb2-98" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-99"><a href="#cb2-99" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;limma&#39;</span></span>
-<span id="cb2-100"><a href="#cb2-100" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:BiocGenerics&#39;:</span></span>
-<span id="cb2-101"><a href="#cb2-101" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-102"><a href="#cb2-102" tabindex="-1"></a><span class="co">#&gt;     plotMA</span></span>
-<span id="cb2-103"><a href="#cb2-103" tabindex="-1"></a><span class="co">#&gt; Loading required package: methylumi</span></span>
-<span id="cb2-104"><a href="#cb2-104" tabindex="-1"></a><span class="co">#&gt; Loading required package: scales</span></span>
-<span id="cb2-105"><a href="#cb2-105" tabindex="-1"></a><span class="co">#&gt; Loading required package: reshape2</span></span>
-<span id="cb2-106"><a href="#cb2-106" tabindex="-1"></a><span class="co">#&gt; Loading required package: ggplot2</span></span>
-<span id="cb2-107"><a href="#cb2-107" tabindex="-1"></a><span class="co">#&gt; Loading required package: FDb.InfiniumMethylation.hg19</span></span>
-<span id="cb2-108"><a href="#cb2-108" tabindex="-1"></a><span class="co">#&gt; Loading required package: GenomicFeatures</span></span>
-<span id="cb2-109"><a href="#cb2-109" tabindex="-1"></a><span class="co">#&gt; Loading required package: AnnotationDbi</span></span>
-<span id="cb2-110"><a href="#cb2-110" tabindex="-1"></a><span class="co">#&gt; Loading required package: TxDb.Hsapiens.UCSC.hg19.knownGene</span></span>
-<span id="cb2-111"><a href="#cb2-111" tabindex="-1"></a><span class="co">#&gt; Loading required package: org.Hs.eg.db</span></span>
-<span id="cb2-112"><a href="#cb2-112" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-113"><a href="#cb2-113" tabindex="-1"></a><span class="co">#&gt; Loading required package: minfi</span></span>
-<span id="cb2-114"><a href="#cb2-114" tabindex="-1"></a><span class="co">#&gt; Loading required package: Biostrings</span></span>
-<span id="cb2-115"><a href="#cb2-115" tabindex="-1"></a><span class="co">#&gt; Loading required package: XVector</span></span>
-<span id="cb2-116"><a href="#cb2-116" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-117"><a href="#cb2-117" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;Biostrings&#39;</span></span>
-<span id="cb2-118"><a href="#cb2-118" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:base&#39;:</span></span>
-<span id="cb2-119"><a href="#cb2-119" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-120"><a href="#cb2-120" tabindex="-1"></a><span class="co">#&gt;     strsplit</span></span>
-<span id="cb2-121"><a href="#cb2-121" tabindex="-1"></a><span class="co">#&gt; Loading required package: bumphunter</span></span>
-<span id="cb2-122"><a href="#cb2-122" tabindex="-1"></a><span class="co">#&gt; Loading required package: foreach</span></span>
-<span id="cb2-123"><a href="#cb2-123" tabindex="-1"></a><span class="co">#&gt; Loading required package: iterators</span></span>
-<span id="cb2-124"><a href="#cb2-124" tabindex="-1"></a><span class="co">#&gt; Loading required package: parallel</span></span>
-<span id="cb2-125"><a href="#cb2-125" tabindex="-1"></a><span class="co">#&gt; Loading required package: locfit</span></span>
-<span id="cb2-126"><a href="#cb2-126" tabindex="-1"></a><span class="co">#&gt; locfit 1.5-9.10   2024-06-24</span></span>
-<span id="cb2-127"><a href="#cb2-127" tabindex="-1"></a><span class="co">#&gt; Setting options(&#39;download.file.method.GEOquery&#39;=&#39;auto&#39;)</span></span>
-<span id="cb2-128"><a href="#cb2-128" tabindex="-1"></a><span class="co">#&gt; Setting options(&#39;GEOquery.inmemory.gpl&#39;=FALSE)</span></span>
-<span id="cb2-129"><a href="#cb2-129" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-130"><a href="#cb2-130" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;minfi&#39;</span></span>
-<span id="cb2-131"><a href="#cb2-131" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:bsseq&#39;:</span></span>
-<span id="cb2-132"><a href="#cb2-132" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-133"><a href="#cb2-133" tabindex="-1"></a><span class="co">#&gt;     getMeth</span></span>
-<span id="cb2-134"><a href="#cb2-134" tabindex="-1"></a><span class="co">#&gt; Loading required package: lumi</span></span>
-<span id="cb2-135"><a href="#cb2-135" tabindex="-1"></a><span class="co">#&gt; No methods found in package &#39;RSQLite&#39; for request: &#39;dbListFields&#39; when loading &#39;lumi&#39;</span></span>
-<span id="cb2-136"><a href="#cb2-136" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-137"><a href="#cb2-137" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;lumi&#39;</span></span>
-<span id="cb2-138"><a href="#cb2-138" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:methylumi&#39;:</span></span>
-<span id="cb2-139"><a href="#cb2-139" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-140"><a href="#cb2-140" tabindex="-1"></a><span class="co">#&gt;     estimateM, getHistory</span></span>
-<span id="cb2-141"><a href="#cb2-141" tabindex="-1"></a><span class="co">#&gt; Loading required package: ROC</span></span>
-<span id="cb2-142"><a href="#cb2-142" tabindex="-1"></a><span class="co">#&gt; Loading required package: IlluminaHumanMethylation450kanno.ilmn12.hg19</span></span>
-<span id="cb2-143"><a href="#cb2-143" tabindex="-1"></a><span class="co">#&gt; Loading required package: illuminaio</span></span>
-<span id="cb2-144"><a href="#cb2-144" tabindex="-1"></a><span class="co">#&gt; Loading required package: impute</span></span>
-<span id="cb2-145"><a href="#cb2-145" tabindex="-1"></a><span class="co">#&gt; Loading required package: AnnotationHub</span></span>
-<span id="cb2-146"><a href="#cb2-146" tabindex="-1"></a><span class="co">#&gt; Loading required package: BiocFileCache</span></span>
-<span id="cb2-147"><a href="#cb2-147" tabindex="-1"></a><span class="co">#&gt; Loading required package: dbplyr</span></span>
-<span id="cb2-148"><a href="#cb2-148" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-149"><a href="#cb2-149" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;AnnotationHub&#39;</span></span>
-<span id="cb2-150"><a href="#cb2-150" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:Biobase&#39;:</span></span>
-<span id="cb2-151"><a href="#cb2-151" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-152"><a href="#cb2-152" tabindex="-1"></a><span class="co">#&gt;     cache</span></span>
-<span id="cb2-153"><a href="#cb2-153" tabindex="-1"></a><span class="co">#&gt; Loading required package: rtracklayer</span></span>
-<span id="cb2-154"><a href="#cb2-154" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-155"><a href="#cb2-155" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;rtracklayer&#39;</span></span>
-<span id="cb2-156"><a href="#cb2-156" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:AnnotationHub&#39;:</span></span>
-<span id="cb2-157"><a href="#cb2-157" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-158"><a href="#cb2-158" tabindex="-1"></a><span class="co">#&gt;     hubUrl</span></span>
-<span id="cb2-159"><a href="#cb2-159" tabindex="-1"></a><span class="co">#&gt; Loading required package: dplyr</span></span>
-<span id="cb2-160"><a href="#cb2-160" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-161"><a href="#cb2-161" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;dplyr&#39;</span></span>
-<span id="cb2-162"><a href="#cb2-162" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:dbplyr&#39;:</span></span>
-<span id="cb2-163"><a href="#cb2-163" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-164"><a href="#cb2-164" tabindex="-1"></a><span class="co">#&gt;     ident, sql</span></span>
-<span id="cb2-165"><a href="#cb2-165" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:lumi&#39;:</span></span>
-<span id="cb2-166"><a href="#cb2-166" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-167"><a href="#cb2-167" tabindex="-1"></a><span class="co">#&gt;     combine</span></span>
-<span id="cb2-168"><a href="#cb2-168" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:methylumi&#39;:</span></span>
-<span id="cb2-169"><a href="#cb2-169" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-170"><a href="#cb2-170" tabindex="-1"></a><span class="co">#&gt;     combine</span></span>
-<span id="cb2-171"><a href="#cb2-171" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:minfi&#39;:</span></span>
-<span id="cb2-172"><a href="#cb2-172" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-173"><a href="#cb2-173" tabindex="-1"></a><span class="co">#&gt;     combine</span></span>
-<span id="cb2-174"><a href="#cb2-174" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:Biostrings&#39;:</span></span>
-<span id="cb2-175"><a href="#cb2-175" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-176"><a href="#cb2-176" tabindex="-1"></a><span class="co">#&gt;     collapse, intersect, setdiff, setequal, union</span></span>
-<span id="cb2-177"><a href="#cb2-177" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:XVector&#39;:</span></span>
-<span id="cb2-178"><a href="#cb2-178" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-179"><a href="#cb2-179" tabindex="-1"></a><span class="co">#&gt;     slice</span></span>
-<span id="cb2-180"><a href="#cb2-180" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:AnnotationDbi&#39;:</span></span>
-<span id="cb2-181"><a href="#cb2-181" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-182"><a href="#cb2-182" tabindex="-1"></a><span class="co">#&gt;     select</span></span>
-<span id="cb2-183"><a href="#cb2-183" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:bsseq&#39;:</span></span>
-<span id="cb2-184"><a href="#cb2-184" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-185"><a href="#cb2-185" tabindex="-1"></a><span class="co">#&gt;     combine</span></span>
-<span id="cb2-186"><a href="#cb2-186" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:Biobase&#39;:</span></span>
-<span id="cb2-187"><a href="#cb2-187" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-188"><a href="#cb2-188" tabindex="-1"></a><span class="co">#&gt;     combine</span></span>
-<span id="cb2-189"><a href="#cb2-189" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:matrixStats&#39;:</span></span>
-<span id="cb2-190"><a href="#cb2-190" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-191"><a href="#cb2-191" tabindex="-1"></a><span class="co">#&gt;     count</span></span>
-<span id="cb2-192"><a href="#cb2-192" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:GenomicRanges&#39;:</span></span>
-<span id="cb2-193"><a href="#cb2-193" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-194"><a href="#cb2-194" tabindex="-1"></a><span class="co">#&gt;     intersect, setdiff, union</span></span>
-<span id="cb2-195"><a href="#cb2-195" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:GenomeInfoDb&#39;:</span></span>
-<span id="cb2-196"><a href="#cb2-196" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-197"><a href="#cb2-197" tabindex="-1"></a><span class="co">#&gt;     intersect</span></span>
-<span id="cb2-198"><a href="#cb2-198" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:IRanges&#39;:</span></span>
-<span id="cb2-199"><a href="#cb2-199" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-200"><a href="#cb2-200" tabindex="-1"></a><span class="co">#&gt;     collapse, desc, intersect, setdiff, slice, union</span></span>
-<span id="cb2-201"><a href="#cb2-201" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:S4Vectors&#39;:</span></span>
-<span id="cb2-202"><a href="#cb2-202" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-203"><a href="#cb2-203" tabindex="-1"></a><span class="co">#&gt;     first, intersect, rename, setdiff, setequal, union</span></span>
-<span id="cb2-204"><a href="#cb2-204" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:BiocGenerics&#39;:</span></span>
-<span id="cb2-205"><a href="#cb2-205" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-206"><a href="#cb2-206" tabindex="-1"></a><span class="co">#&gt;     combine, intersect, setdiff, union</span></span>
-<span id="cb2-207"><a href="#cb2-207" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span></span>
-<span id="cb2-208"><a href="#cb2-208" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-209"><a href="#cb2-209" tabindex="-1"></a><span class="co">#&gt;     filter, lag</span></span>
-<span id="cb2-210"><a href="#cb2-210" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span></span>
-<span id="cb2-211"><a href="#cb2-211" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-212"><a href="#cb2-212" tabindex="-1"></a><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
-<span id="cb2-213"><a href="#cb2-213" tabindex="-1"></a><span class="co">#&gt; Loading required package: methylclock</span></span>
-<span id="cb2-214"><a href="#cb2-214" tabindex="-1"></a><span class="co">#&gt; Loading required package: methylclockData</span></span>
-<span id="cb2-215"><a href="#cb2-215" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;utils::findMatches&#39; by</span></span>
-<span id="cb2-216"><a href="#cb2-216" tabindex="-1"></a><span class="co">#&gt; &#39;S4Vectors::findMatches&#39; when loading &#39;ExperimentHubData&#39;</span></span>
-<span id="cb2-217"><a href="#cb2-217" tabindex="-1"></a><span class="co">#&gt; Loading required package: devtools</span></span>
-<span id="cb2-218"><a href="#cb2-218" tabindex="-1"></a><span class="co">#&gt; Loading required package: usethis</span></span>
-<span id="cb2-219"><a href="#cb2-219" tabindex="-1"></a><span class="co">#&gt; Loading required package: quadprog</span></span>
-<span id="cb2-220"><a href="#cb2-220" tabindex="-1"></a><span class="co">#&gt; Registered S3 methods overwritten by &#39;ggpp&#39;:</span></span>
-<span id="cb2-221"><a href="#cb2-221" tabindex="-1"></a><span class="co">#&gt;   method                  from   </span></span>
-<span id="cb2-222"><a href="#cb2-222" tabindex="-1"></a><span class="co">#&gt;   heightDetails.titleGrob ggplot2</span></span>
-<span id="cb2-223"><a href="#cb2-223" tabindex="-1"></a><span class="co">#&gt;   widthDetails.titleGrob  ggplot2</span></span>
-<span id="cb2-224"><a href="#cb2-224" tabindex="-1"></a><span class="co">#&gt; Loading required package: tibble</span></span>
-<span id="cb2-225"><a href="#cb2-225" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;GenomicRanges::intersect&#39; by</span></span>
-<span id="cb2-226"><a href="#cb2-226" tabindex="-1"></a><span class="co">#&gt; &#39;dplyr::intersect&#39; when loading &#39;oliveR&#39;</span></span>
-<span id="cb2-227"><a href="#cb2-227" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;GenomicRanges::union&#39; by &#39;dplyr::union&#39;</span></span>
-<span id="cb2-228"><a href="#cb2-228" tabindex="-1"></a><span class="co">#&gt; when loading &#39;oliveR&#39;</span></span>
-<span id="cb2-229"><a href="#cb2-229" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;bsseq::combine&#39; by &#39;dplyr::combine&#39; when</span></span>
-<span id="cb2-230"><a href="#cb2-230" tabindex="-1"></a><span class="co">#&gt; loading &#39;oliveR&#39;</span></span>
-<span id="cb2-231"><a href="#cb2-231" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;GenomicRanges::setdiff&#39; by &#39;dplyr::setdiff&#39;</span></span>
-<span id="cb2-232"><a href="#cb2-232" tabindex="-1"></a><span class="co">#&gt; when loading &#39;oliveR&#39;</span></span>
-<span id="cb2-233"><a href="#cb2-233" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;AnnotationHub::hubUrl&#39; by</span></span>
-<span id="cb2-234"><a href="#cb2-234" tabindex="-1"></a><span class="co">#&gt; &#39;rtracklayer::hubUrl&#39; when loading &#39;oliveR&#39;</span></span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(oliveR))</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; No methods found in package &#39;RSQLite&#39; for request: &#39;dbListFields&#39; when loading &#39;lumi&#39;</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;utils::findMatches&#39; by</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; &#39;S4Vectors::findMatches&#39; when loading &#39;ExperimentHubData&#39;</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;GenomicRanges::intersect&#39; by</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; &#39;dplyr::intersect&#39; when loading &#39;oliveR&#39;</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;GenomicRanges::union&#39; by &#39;dplyr::union&#39;</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; when loading &#39;oliveR&#39;</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;bsseq::combine&#39; by &#39;dplyr::combine&#39; when</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; loading &#39;oliveR&#39;</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;GenomicRanges::setdiff&#39; by &#39;dplyr::setdiff&#39;</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; when loading &#39;oliveR&#39;</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; Warning: replacing previous import &#39;AnnotationHub::hubUrl&#39; by</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; &#39;rtracklayer::hubUrl&#39; when loading &#39;oliveR&#39;</span></span></code></pre></div>
 <p>Now we can load in a toy dataset.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># get toy example</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">data</span>(bs)</span></code></pre></div>
@@ -711,6 +492,11 @@ those on the arrays. In this toy example most of the ages look off due
 to the fact that most CpGs are missing because of size limitations. That
 being said, in your own data, estimates should (hopefully) be more
 accurate.</p>
+<p>Please note, if your samples happen to be embryonic, you can set the
+option gestationalAge to TRUE. In that case, the function will calculate
+the estimated age using several epigenetic clocks trained on prenatal
+samples. The estimates will be in “gestational age” for each sample,
+which is weeks of gestation.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># assess the correlation between actual and estimated age</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>corMADRID <span class="ot">&lt;-</span> <span class="fu">cor</span>(predicted_age<span class="sc">$</span>MADRID_Age, <span class="fu">pData</span>(bs)<span class="sc">$</span>Age)</span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>corMADRID</span>
@@ -761,6 +547,26 @@ demonstration a simple t-test is utilized here.</p>
 difference (accelerated or decelerated) in predicted age between groups.
 Hopefully in your data there will be, though!</p>
 </div>
+<div id="telomere-length" class="section level3">
+<h3>Telomere length</h3>
+<p>Telomeres are regions of repetitive DNA sequences harbored at the end
+of chromosomes. One of the main functions of telomeres is to protect the
+terminal ends of chromosomes from degredation. However, one thing to
+note is that the length of telomeres shortens with age which can lead to
+senescence and apoptosis. As such, shorter telomeres have been linked to
+increased risk of diseases in humans. A function has been implemented
+here to estimate telomere lengths from sequencing-based data. Let’s take
+a look at how this would be done.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># estimate telomere lengths</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>tls <span class="ot">&lt;-</span> <span class="fu">estimateTL</span>(bs)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co"># look at the output</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>tls</span></code></pre></div>
+<p>The above code is not actually run, again, because the toy dataset
+we’re working with does not contain the necessary CpGs used to estimate
+telomere length. However, in your dataset, that should not be a
+problem!</p>
+</div>
 <div id="estimate-cell-type-proportions-of-blood-samples" class="section level3">
 <h3>Estimate cell-type proportions of blood samples</h3>
 <p>If you’re using blood or saliva samples, we can also estimate the
@@ -771,11 +577,11 @@ EPIC microarray and had the exact same DNA extracts also sequenced and
 found that this method produced results that were more correlated with
 each other than other methods that were developed for sequence data
 (e.g., methylcc).</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># estimate cell-type proportions from blood samples</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>cellProps <span class="ot">&lt;-</span> <span class="fu">estimateCellProps</span>(bs)</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co"># check the estimates</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="fu">head</span>(cellProps)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># estimate cell-type proportions from blood samples</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>cellProps <span class="ot">&lt;-</span> <span class="fu">estimateCellProps</span>(bs)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co"># check the estimates</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="fu">head</span>(cellProps)</span></code></pre></div>
 <p>Please note, the above code is not actually run since the bsseq
 object we have here for the demonstration does not have the sufficient
 CpGs needed estimate cell-type proportions and would throw out an error.
@@ -790,19 +596,19 @@ hg38. But, on the off chance that you aligned to hg19 or are using old
 data that was aligned to hg19, or if you want to convert your hg38
 coordinates to hg19 for whatever reason, I’ve implemented a function to
 do just that. See below:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># lift coordinates from hg38 to hg19</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>bsLifted <span class="ot">&lt;-</span> <span class="fu">liftBuild</span>(bs, <span class="at">current =</span> <span class="st">&quot;hg38&quot;</span>, <span class="at">new =</span> <span class="st">&quot;hg19&quot;</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; [liftBuild]: Will lift your bsseq object from hg38 to hg19</span></span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; loading from cache</span></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; [liftBuild]: Lifting over resulted in a loss of 68787 CpGs</span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co"># check the lifted coordinates</span></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>bsLifted</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; An object of type &#39;BSseq&#39; with</span></span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt;   1266692 methylation loci</span></span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt;   10 samples</span></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; has not been smoothed</span></span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; All assays are in-memory</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># lift coordinates from hg38 to hg19</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>bsLifted <span class="ot">&lt;-</span> <span class="fu">liftBuild</span>(bs, <span class="at">current =</span> <span class="st">&quot;hg38&quot;</span>, <span class="at">new =</span> <span class="st">&quot;hg19&quot;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#&gt; [liftBuild]: Will lift your bsseq object from hg38 to hg19</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">#&gt; loading from cache</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt; [liftBuild]: Lifting over resulted in a loss of 68787 CpGs</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co"># check the lifted coordinates</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>bsLifted</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt; An object of type &#39;BSseq&#39; with</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#&gt;   1266692 methylation loci</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt;   10 samples</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; has not been smoothed</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt; All assays are in-memory</span></span></code></pre></div>
 </div>
 <div id="imprinted-regions" class="section level3">
 <h3>Imprinted regions</h3>
@@ -811,76 +617,76 @@ differentially methylated regions (DMRs), we can also check the overlap
 between those segments of the genome and those known to be imprinted.
 For more information on how these imprinted regions were identified,
 please refer to Jima et al (2022) Epigenetics.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># load in DMR GRanges object</span></span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="fu">data</span>(dmrs)</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co"># take a look at the DMRs</span></span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>dmrs</span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">#&gt; GRanges object with 476 ranges and 0 metadata columns:</span></span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">#&gt;         seqnames              ranges strand</span></span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#&gt;            &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;</span></span>
-<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt;     [1]    chr17   21862802-21863542      *</span></span>
-<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#&gt;     [2]     chr2   88778520-88784447      *</span></span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt;     [3]     chr3   75789914-75795801      *</span></span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt;     [4]     chr3   75786134-75788241      *</span></span>
-<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt;     [5]     chr7   61047210-61049745      *</span></span>
-<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#&gt;     ...      ...                 ...    ...</span></span>
-<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt;   [472]    chr22   16335697-16336218      *</span></span>
-<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="co">#&gt;   [473]     chr5   49666198-49666478      *</span></span>
-<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="co">#&gt;   [474]    chr20   25772827-25773518      *</span></span>
-<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="co">#&gt;   [475]    chr10 133688703-133690164      *</span></span>
-<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="co">#&gt;   [476]    chr20   30633411-30636228      *</span></span>
-<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a><span class="co">#&gt;   -------</span></span>
-<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a><span class="co">#&gt;   seqinfo: 22 sequences from an unspecified genome; no seqlengths</span></span>
-<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a></span>
-<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a><span class="co"># overlap with the imprintome</span></span>
-<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a>dmrsImprinted <span class="ot">&lt;-</span> <span class="fu">imprintMe</span>(dmrs)</span>
-<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a><span class="co">#&gt; [imprintMe]: Looking for overlaps with imprinted regions now</span></span>
-<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a></span>
-<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a><span class="co"># look at the output</span></span>
-<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a>dmrsImprinted</span>
-<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a><span class="co">#&gt; GRanges object with 15 ranges and 9 metadata columns:</span></span>
-<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a><span class="co">#&gt;        seqnames              ranges strand | seqnames     start       end</span></span>
-<span id="cb12-31"><a href="#cb12-31" tabindex="-1"></a><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;factor&gt; &lt;integer&gt; &lt;integer&gt;</span></span>
-<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a><span class="co">#&gt;    [1]    chr20   29867830-29870156      * |    chr20  29868336  29870377</span></span>
-<span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a><span class="co">#&gt;    [2]    chr22   11353466-11355455      * |    chr22  11353621  11355111</span></span>
-<span id="cb12-34"><a href="#cb12-34" tabindex="-1"></a><span class="co">#&gt;    [3]     chr9   41272995-41273921      * |    chr9   41273436  41273534</span></span>
-<span id="cb12-35"><a href="#cb12-35" tabindex="-1"></a><span class="co">#&gt;    [4]     chr9   63815602-63816764      * |    chr9   63816391  63816562</span></span>
-<span id="cb12-36"><a href="#cb12-36" tabindex="-1"></a><span class="co">#&gt;    [5]     chr9   63815602-63816764      * |    chr9   63816764  63816827</span></span>
-<span id="cb12-37"><a href="#cb12-37" tabindex="-1"></a><span class="co">#&gt;    ...      ...                 ...    ... .      ...       ...       ...</span></span>
-<span id="cb12-38"><a href="#cb12-38" tabindex="-1"></a><span class="co">#&gt;   [11]    chr20   29409184-29410062      * |    chr20  29408910  29409184</span></span>
-<span id="cb12-39"><a href="#cb12-39" tabindex="-1"></a><span class="co">#&gt;   [12]     chr7   25864754-25866563      * |    chr7   25866370  25866563</span></span>
-<span id="cb12-40"><a href="#cb12-40" tabindex="-1"></a><span class="co">#&gt;   [13]    chr20   30871644-30872386      * |    chr20  30871233  30872165</span></span>
-<span id="cb12-41"><a href="#cb12-41" tabindex="-1"></a><span class="co">#&gt;   [14]     chr5 141339607-141341419      * |    chr5  141339675 141339766</span></span>
-<span id="cb12-42"><a href="#cb12-42" tabindex="-1"></a><span class="co">#&gt;   [15]    chr10 133688703-133690164      * |    chr10 133689257 133690164</span></span>
-<span id="cb12-43"><a href="#cb12-43" tabindex="-1"></a><span class="co">#&gt;            width   strand          ID Parental.Origin.of.Methylation</span></span>
-<span id="cb12-44"><a href="#cb12-44" tabindex="-1"></a><span class="co">#&gt;        &lt;integer&gt; &lt;factor&gt; &lt;character&gt;                    &lt;character&gt;</span></span>
-<span id="cb12-45"><a href="#cb12-45" tabindex="-1"></a><span class="co">#&gt;    [1]      2042        *    ICR_1174                               </span></span>
-<span id="cb12-46"><a href="#cb12-46" tabindex="-1"></a><span class="co">#&gt;    [2]      1491        *    ICR_1337                               </span></span>
-<span id="cb12-47"><a href="#cb12-47" tabindex="-1"></a><span class="co">#&gt;    [3]        99        *     ICR_571                               </span></span>
-<span id="cb12-48"><a href="#cb12-48" tabindex="-1"></a><span class="co">#&gt;    [4]       172        *     ICR_586                            M**</span></span>
-<span id="cb12-49"><a href="#cb12-49" tabindex="-1"></a><span class="co">#&gt;    [5]        64        *    ICR_587^                               </span></span>
-<span id="cb12-50"><a href="#cb12-50" tabindex="-1"></a><span class="co">#&gt;    ...       ...      ...         ...                            ...</span></span>
-<span id="cb12-51"><a href="#cb12-51" tabindex="-1"></a><span class="co">#&gt;   [11]       275        *    ICR_1162                               </span></span>
-<span id="cb12-52"><a href="#cb12-52" tabindex="-1"></a><span class="co">#&gt;   [12]       194        *     ICR_444                               </span></span>
-<span id="cb12-53"><a href="#cb12-53" tabindex="-1"></a><span class="co">#&gt;   [13]       933        *    ICR_1186                               </span></span>
-<span id="cb12-54"><a href="#cb12-54" tabindex="-1"></a><span class="co">#&gt;   [14]        92        *     ICR_339                            M**</span></span>
-<span id="cb12-55"><a href="#cb12-55" tabindex="-1"></a><span class="co">#&gt;   [15]       908        *     ICR_702                               </span></span>
-<span id="cb12-56"><a href="#cb12-56" tabindex="-1"></a><span class="co">#&gt;        Nearest.Transcript Distance.to.Nearest.Transcript</span></span>
-<span id="cb12-57"><a href="#cb12-57" tabindex="-1"></a><span class="co">#&gt;               &lt;character&gt;                      &lt;numeric&gt;</span></span>
-<span id="cb12-58"><a href="#cb12-58" tabindex="-1"></a><span class="co">#&gt;    [1]          RNA5SP532                           3682</span></span>
-<span id="cb12-59"><a href="#cb12-59" tabindex="-1"></a><span class="co">#&gt;    [2]            DUX4L41                          70730</span></span>
-<span id="cb12-60"><a href="#cb12-60" tabindex="-1"></a><span class="co">#&gt;    [3]           PTGER4P1                           5925</span></span>
-<span id="cb12-61"><a href="#cb12-61" tabindex="-1"></a><span class="co">#&gt;    [4]          LINC00537                              0</span></span>
-<span id="cb12-62"><a href="#cb12-62" tabindex="-1"></a><span class="co">#&gt;    [5]          LINC00537                              0</span></span>
-<span id="cb12-63"><a href="#cb12-63" tabindex="-1"></a><span class="co">#&gt;    ...                ...                            ...</span></span>
-<span id="cb12-64"><a href="#cb12-64" tabindex="-1"></a><span class="co">#&gt;   [11]            DUX4L34                           1100</span></span>
-<span id="cb12-65"><a href="#cb12-65" tabindex="-1"></a><span class="co">#&gt;   [12]            MIR148A                          83356</span></span>
-<span id="cb12-66"><a href="#cb12-66" tabindex="-1"></a><span class="co">#&gt;   [13]            DUX4L38                          22296</span></span>
-<span id="cb12-67"><a href="#cb12-67" tabindex="-1"></a><span class="co">#&gt;   [14]          PCDHGA1-2                              0</span></span>
-<span id="cb12-68"><a href="#cb12-68" tabindex="-1"></a><span class="co">#&gt;   [15]            DUX4L20                           4065</span></span>
-<span id="cb12-69"><a href="#cb12-69" tabindex="-1"></a><span class="co">#&gt;   -------</span></span>
-<span id="cb12-70"><a href="#cb12-70" tabindex="-1"></a><span class="co">#&gt;   seqinfo: 22 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># load in DMR GRanges object</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">data</span>(dmrs)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co"># take a look at the DMRs</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>dmrs</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; GRanges object with 476 ranges and 0 metadata columns:</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt;         seqnames              ranges strand</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt;            &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt;     [1]    chr17   21862802-21863542      *</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt;     [2]     chr2   88778520-88784447      *</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt;     [3]     chr3   75789914-75795801      *</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt;     [4]     chr3   75786134-75788241      *</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt;     [5]     chr7   61047210-61049745      *</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt;     ...      ...                 ...    ...</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt;   [472]    chr22   16335697-16336218      *</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt;   [473]     chr5   49666198-49666478      *</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co">#&gt;   [474]    chr20   25772827-25773518      *</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="co">#&gt;   [475]    chr10 133688703-133690164      *</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="co">#&gt;   [476]    chr20   30633411-30636228      *</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="co">#&gt;   -------</span></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="co">#&gt;   seqinfo: 22 sequences from an unspecified genome; no seqlengths</span></span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co"># overlap with the imprintome</span></span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a>dmrsImprinted <span class="ot">&lt;-</span> <span class="fu">imprintMe</span>(dmrs)</span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="co">#&gt; [imprintMe]: Looking for overlaps with imprinted regions now</span></span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="co"># look at the output</span></span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a>dmrsImprinted</span>
+<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a><span class="co">#&gt; GRanges object with 15 ranges and 9 metadata columns:</span></span>
+<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="co">#&gt;        seqnames              ranges strand | seqnames     start       end</span></span>
+<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a><span class="co">#&gt;           &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;factor&gt; &lt;integer&gt; &lt;integer&gt;</span></span>
+<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a><span class="co">#&gt;    [1]    chr20   29867830-29870156      * |    chr20  29868336  29870377</span></span>
+<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a><span class="co">#&gt;    [2]    chr22   11353466-11355455      * |    chr22  11353621  11355111</span></span>
+<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a><span class="co">#&gt;    [3]     chr9   41272995-41273921      * |    chr9   41273436  41273534</span></span>
+<span id="cb13-35"><a href="#cb13-35" tabindex="-1"></a><span class="co">#&gt;    [4]     chr9   63815602-63816764      * |    chr9   63816391  63816562</span></span>
+<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a><span class="co">#&gt;    [5]     chr9   63815602-63816764      * |    chr9   63816764  63816827</span></span>
+<span id="cb13-37"><a href="#cb13-37" tabindex="-1"></a><span class="co">#&gt;    ...      ...                 ...    ... .      ...       ...       ...</span></span>
+<span id="cb13-38"><a href="#cb13-38" tabindex="-1"></a><span class="co">#&gt;   [11]    chr20   29409184-29410062      * |    chr20  29408910  29409184</span></span>
+<span id="cb13-39"><a href="#cb13-39" tabindex="-1"></a><span class="co">#&gt;   [12]     chr7   25864754-25866563      * |    chr7   25866370  25866563</span></span>
+<span id="cb13-40"><a href="#cb13-40" tabindex="-1"></a><span class="co">#&gt;   [13]    chr20   30871644-30872386      * |    chr20  30871233  30872165</span></span>
+<span id="cb13-41"><a href="#cb13-41" tabindex="-1"></a><span class="co">#&gt;   [14]     chr5 141339607-141341419      * |    chr5  141339675 141339766</span></span>
+<span id="cb13-42"><a href="#cb13-42" tabindex="-1"></a><span class="co">#&gt;   [15]    chr10 133688703-133690164      * |    chr10 133689257 133690164</span></span>
+<span id="cb13-43"><a href="#cb13-43" tabindex="-1"></a><span class="co">#&gt;            width   strand          ID Parental.Origin.of.Methylation</span></span>
+<span id="cb13-44"><a href="#cb13-44" tabindex="-1"></a><span class="co">#&gt;        &lt;integer&gt; &lt;factor&gt; &lt;character&gt;                    &lt;character&gt;</span></span>
+<span id="cb13-45"><a href="#cb13-45" tabindex="-1"></a><span class="co">#&gt;    [1]      2042        *    ICR_1174                               </span></span>
+<span id="cb13-46"><a href="#cb13-46" tabindex="-1"></a><span class="co">#&gt;    [2]      1491        *    ICR_1337                               </span></span>
+<span id="cb13-47"><a href="#cb13-47" tabindex="-1"></a><span class="co">#&gt;    [3]        99        *     ICR_571                               </span></span>
+<span id="cb13-48"><a href="#cb13-48" tabindex="-1"></a><span class="co">#&gt;    [4]       172        *     ICR_586                            M**</span></span>
+<span id="cb13-49"><a href="#cb13-49" tabindex="-1"></a><span class="co">#&gt;    [5]        64        *    ICR_587^                               </span></span>
+<span id="cb13-50"><a href="#cb13-50" tabindex="-1"></a><span class="co">#&gt;    ...       ...      ...         ...                            ...</span></span>
+<span id="cb13-51"><a href="#cb13-51" tabindex="-1"></a><span class="co">#&gt;   [11]       275        *    ICR_1162                               </span></span>
+<span id="cb13-52"><a href="#cb13-52" tabindex="-1"></a><span class="co">#&gt;   [12]       194        *     ICR_444                               </span></span>
+<span id="cb13-53"><a href="#cb13-53" tabindex="-1"></a><span class="co">#&gt;   [13]       933        *    ICR_1186                               </span></span>
+<span id="cb13-54"><a href="#cb13-54" tabindex="-1"></a><span class="co">#&gt;   [14]        92        *     ICR_339                            M**</span></span>
+<span id="cb13-55"><a href="#cb13-55" tabindex="-1"></a><span class="co">#&gt;   [15]       908        *     ICR_702                               </span></span>
+<span id="cb13-56"><a href="#cb13-56" tabindex="-1"></a><span class="co">#&gt;        Nearest.Transcript Distance.to.Nearest.Transcript</span></span>
+<span id="cb13-57"><a href="#cb13-57" tabindex="-1"></a><span class="co">#&gt;               &lt;character&gt;                      &lt;numeric&gt;</span></span>
+<span id="cb13-58"><a href="#cb13-58" tabindex="-1"></a><span class="co">#&gt;    [1]          RNA5SP532                           3682</span></span>
+<span id="cb13-59"><a href="#cb13-59" tabindex="-1"></a><span class="co">#&gt;    [2]            DUX4L41                          70730</span></span>
+<span id="cb13-60"><a href="#cb13-60" tabindex="-1"></a><span class="co">#&gt;    [3]           PTGER4P1                           5925</span></span>
+<span id="cb13-61"><a href="#cb13-61" tabindex="-1"></a><span class="co">#&gt;    [4]          LINC00537                              0</span></span>
+<span id="cb13-62"><a href="#cb13-62" tabindex="-1"></a><span class="co">#&gt;    [5]          LINC00537                              0</span></span>
+<span id="cb13-63"><a href="#cb13-63" tabindex="-1"></a><span class="co">#&gt;    ...                ...                            ...</span></span>
+<span id="cb13-64"><a href="#cb13-64" tabindex="-1"></a><span class="co">#&gt;   [11]            DUX4L34                           1100</span></span>
+<span id="cb13-65"><a href="#cb13-65" tabindex="-1"></a><span class="co">#&gt;   [12]            MIR148A                          83356</span></span>
+<span id="cb13-66"><a href="#cb13-66" tabindex="-1"></a><span class="co">#&gt;   [13]            DUX4L38                          22296</span></span>
+<span id="cb13-67"><a href="#cb13-67" tabindex="-1"></a><span class="co">#&gt;   [14]          PCDHGA1-2                              0</span></span>
+<span id="cb13-68"><a href="#cb13-68" tabindex="-1"></a><span class="co">#&gt;   [15]            DUX4L20                           4065</span></span>
+<span id="cb13-69"><a href="#cb13-69" tabindex="-1"></a><span class="co">#&gt;   -------</span></span>
+<span id="cb13-70"><a href="#cb13-70" tabindex="-1"></a><span class="co">#&gt;   seqinfo: 22 sequences from an unspecified genome; no seqlengths</span></span></code></pre></div>
 <p>For this to work, your regions should be a GRanges object, with
 coordinates stemming from the hg38 version of the human genome. The
 output is a GRanges object, with information on the imprinted regions
@@ -901,11 +707,11 @@ your dataset and tries to identify ICRs which, by default, are regions
 with &gt;= 5 consecutive CpGs all with methylation levels ranging from
 35-65% in all the CpGs, in all the samples. Let’s test it out and see
 how it works.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># identify ICRs in toy dataset</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>icrs <span class="ot">&lt;-</span> <span class="fu">findICRs</span>(bs)</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co"># take a look at the ICRs</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>icrs</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># identify ICRs in toy dataset</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>icrs <span class="ot">&lt;-</span> <span class="fu">findICRs</span>(bs)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co"># take a look at the ICRs</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>icrs</span></code></pre></div>
 <p>The above code is not actually run due to the toy dataset being just
 a subste of the genome. As such, we wouldn’t necessarily expect to see
 any ICRs, in this case.</p>
@@ -925,37 +731,37 @@ in its current iteration it is extremely slow. Moreover, if you choose
 to save the outputs (e.g., the identified SEMs for each individual
 sample), it can take up a lot of disk space. So, just fair warning on
 that. Either way, here’s how to use it:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># detect SEMs</span></span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co">#sampleSEMs &lt;- findSEMs(bs, minSamples = 10) # setting samples to 10 for demo, but &gt;50 is recommended for actual use</span></span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co"># check the output</span></span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>sampleSEMs</span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#&gt;           Hyper_SEMs Hypo_SEMs Total_SEMs log10SEMs</span></span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="co">#&gt; Sample_1         376      5565       5941  3.773860</span></span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt; Sample_2         696      9623      10319  4.013638</span></span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt; Sample_3         512      4501       5013  3.700098</span></span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; Sample_4         530      9227       9757  3.989316</span></span>
-<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="co">#&gt; Sample_5        6516      5855      12371  4.092405</span></span>
-<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="co">#&gt; Sample_6         583      5027       5610  3.748963</span></span>
-<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="co">#&gt; Sample_7        2080      4412       6492  3.812379</span></span>
-<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="co">#&gt; Sample_8         482      5995       6477  3.811374</span></span>
-<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="co">#&gt; Sample_9        3277      4705       7982  3.902112</span></span>
-<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="co">#&gt; Sample_10        509      9137       9646  3.984347</span></span>
-<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a></span>
-<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co"># check to see if there are any differences between groups</span></span>
-<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="fu">t.test</span>(sampleSEMs<span class="sc">$</span>log10SEMs <span class="sc">~</span> <span class="fu">factor</span>(<span class="fu">pData</span>(bs)<span class="sc">$</span>Diagnosis))</span>
-<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a><span class="co">#&gt;  Welch Two Sample t-test</span></span>
-<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="co">#&gt; data:  sampleSEMs$log10SEMs by factor(pData(bs)$Diagnosis)</span></span>
-<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a><span class="co">#&gt; t = -0.72429, df = 6.2028, p-value = 0.4953</span></span>
-<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true difference in means between group Case and group Control is not equal to 0</span></span>
-<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a><span class="co">#&gt;  -0.2699336  0.1458769</span></span>
-<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
-<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a><span class="co">#&gt;    mean in group Case mean in group Control </span></span>
-<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a><span class="co">#&gt;              3.851835              3.913863</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># detect SEMs</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co">#sampleSEMs &lt;- findSEMs(bs, minSamples = 10) # setting samples to 10 for demo, but &gt;50 is recommended for actual use</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co"># check the output</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>sampleSEMs</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt;           Hyper_SEMs Hypo_SEMs Total_SEMs log10SEMs</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; Sample_1         376      5565       5941  3.773860</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; Sample_2         696      9623      10319  4.013638</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; Sample_3         512      4501       5013  3.700098</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; Sample_4         530      9227       9757  3.989316</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; Sample_5        6516      5855      12371  4.092405</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt; Sample_6         583      5027       5610  3.748963</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt; Sample_7        2080      4412       6492  3.812379</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; Sample_8         482      5995       6477  3.811374</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; Sample_9        3277      4705       7982  3.902112</span></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; Sample_10        509      9137       9646  3.984347</span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co"># check to see if there are any differences between groups</span></span>
+<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="fu">t.test</span>(sampleSEMs<span class="sc">$</span>log10SEMs <span class="sc">~</span> <span class="fu">factor</span>(<span class="fu">pData</span>(bs)<span class="sc">$</span>Diagnosis))</span>
+<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-24"><a href="#cb15-24" tabindex="-1"></a><span class="co">#&gt; data:  sampleSEMs$log10SEMs by factor(pData(bs)$Diagnosis)</span></span>
+<span id="cb15-25"><a href="#cb15-25" tabindex="-1"></a><span class="co">#&gt; t = -0.72429, df = 6.2028, p-value = 0.4953</span></span>
+<span id="cb15-26"><a href="#cb15-26" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true difference in means between group Case and group Control is not equal to 0</span></span>
+<span id="cb15-27"><a href="#cb15-27" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb15-28"><a href="#cb15-28" tabindex="-1"></a><span class="co">#&gt;  -0.2699336  0.1458769</span></span>
+<span id="cb15-29"><a href="#cb15-29" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb15-30"><a href="#cb15-30" tabindex="-1"></a><span class="co">#&gt;    mean in group Case mean in group Control </span></span>
+<span id="cb15-31"><a href="#cb15-31" tabindex="-1"></a><span class="co">#&gt;              3.851835              3.913863</span></span></code></pre></div>
 <p>You’ll notice that a portion of the script is commented out. That was
 done to speed things up. I will be honest and say that this function is
 pretty slow. If there’s a future need for it, I can work on speeding it
@@ -982,11 +788,11 @@ samples. To do this, the function leans on R package MethylSeekR to do
 most of the heavy lifting, such as identifying PMDs and training the HMM
 to then find LMRs. This is done sample-by-sample. We can take a look at
 how one would go about looking for LMRs in their own dataset.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Identify LMRs</span></span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>lmrs <span class="ot">&lt;-</span> <span class="fu">findLMRs</span>(bs)</span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co"># take a look at LMRs</span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>lmrs</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Identify LMRs</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>lmrs <span class="ot">&lt;-</span> <span class="fu">findLMRs</span>(bs)</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co"># take a look at LMRs</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>lmrs</span></code></pre></div>
 <p>Downstream analyses can include finding LMRs that are common amongst
 your samples in the same treatment groups, and find those that are
 unique to each treatment group.</p>
@@ -1000,25 +806,25 @@ R package wateRmelon to estimate smoking status. By default, the
 function guesses “packyears” but can be changed to look at other smoking
 measures. See wateRmelon::smokp() for other available
 methods/references.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># guess smoking status</span></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>smoking <span class="ot">&lt;-</span> <span class="fu">guessSmoking</span>(bs)</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co">#&gt; [guessSmoking]: will calculate using Packyears</span></span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co">#&gt; [guessSmoking]: gathering CpGs for array-based smoking estimation now</span></span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co">#&gt; [guessSmoking]: estimating smoking status now</span></span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co"># look at the results</span></span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>smoking</span>
-<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="co">#&gt;           Packyears</span></span>
-<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co">#&gt; Sample_1   52.64218</span></span>
-<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co">#&gt; Sample_2   52.64218</span></span>
-<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt; Sample_3   52.64218</span></span>
-<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt; Sample_4   52.64218</span></span>
-<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt; Sample_5   52.64218</span></span>
-<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt; Sample_6   52.64218</span></span>
-<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#&gt; Sample_7   52.64218</span></span>
-<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="co">#&gt; Sample_8   52.64218</span></span>
-<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="co">#&gt; Sample_9   52.64218</span></span>
-<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a><span class="co">#&gt; Sample_10  52.64218</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># guess smoking status</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>smoking <span class="ot">&lt;-</span> <span class="fu">guessSmoking</span>(bs)</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="co">#&gt; [guessSmoking]: will calculate using Packyears</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="co">#&gt; [guessSmoking]: gathering CpGs for array-based smoking estimation now</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="co">#&gt; [guessSmoking]: estimating smoking status now</span></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co"># look at the results</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>smoking</span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="co">#&gt;           Packyears</span></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a><span class="co">#&gt; Sample_1   52.64218</span></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">#&gt; Sample_2   52.64218</span></span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co">#&gt; Sample_3   52.64218</span></span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a><span class="co">#&gt; Sample_4   52.64218</span></span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">#&gt; Sample_5   52.64218</span></span>
+<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a><span class="co">#&gt; Sample_6   52.64218</span></span>
+<span id="cb17-16"><a href="#cb17-16" tabindex="-1"></a><span class="co">#&gt; Sample_7   52.64218</span></span>
+<span id="cb17-17"><a href="#cb17-17" tabindex="-1"></a><span class="co">#&gt; Sample_8   52.64218</span></span>
+<span id="cb17-18"><a href="#cb17-18" tabindex="-1"></a><span class="co">#&gt; Sample_9   52.64218</span></span>
+<span id="cb17-19"><a href="#cb17-19" tabindex="-1"></a><span class="co">#&gt; Sample_10  52.64218</span></span></code></pre></div>
 <p>As this is just a subset of CpGs in the toy dataset, smoking status
 cannot be calculated. But, in your own dataset which should hopefully
 have jsut about every CpG in it, the function should be able to estimate

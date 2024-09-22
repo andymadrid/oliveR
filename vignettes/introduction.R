@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## -----------------------------------------------------------------------------
 # load in the oliveR pacakge
-library(oliveR)
+suppressPackageStartupMessages(library(oliveR))
 
 
 
@@ -73,6 +73,14 @@ predicted_age$residuals <- resid(lm(predicted_age$MADRID_Age ~ pData(bs)$Age))
 t.test(predicted_age$residuals ~ factor(pData(bs)$Diagnosis))
 
 
+
+## ----eval = FALSE-------------------------------------------------------------
+#  # estimate telomere lengths
+#  tls <- estimateTL(bs)
+#  
+#  # look at the output
+#  tls
+#  
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  # estimate cell-type proportions from blood samples
