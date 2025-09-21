@@ -150,16 +150,16 @@ madrid <- function(bs, adult.age = 20, checkCov = TRUE, fastImpute = FALSE, imp 
         array.gr.subset <- arrayCpGs[overlaps$queryHits,]
         beta.subset <- meth.mat[overlaps$subjectHits,]
         rownames(beta.subset) <- array.gr.subset$V4
-        message("[madrid]: calculating Dunedin methylation pace now")
-        dunedin <- DunedinPACE::PACEProjector(betaFull.subset)
+#        message("[madrid]: calculating Dunedin methylation pace now")
+#        dunedin <- DunedinPACE::PACEProjector(betaFull.subset)
         message("[madrid]: imputing missing data for array-based CpGs now")
         captured <- capture.output(tmpArrayData <- impute::impute.knn(beta.subset, rng.seed = 714))
         beta.subset <- tmpArrayData$data
         message("[madrid]: calculating age from array-based clocks now")
         predAge.array <- wateRmelon::agep(beta.subset, method='all')
         predAge.array <- predAge.array[, c("horvath.horvath.age", "hannum.hannum.age", "phenoage.phenoage.age", "skinblood.skinblood.age", "lin.lin.age")]
-        predAge.array$DunedinPACE <- dunedin$DunedinPACE
-        colnames(predAge.array) <- c("Horvath_Age", "Hannum_Age", "PhenoAge", "SkinBlood_Age", "Lin_Age", "DunedinPACE")
+        colnames(predAge.array) <- c("Horvath_Age", "Hannum_Age", "PhenoAge", "SkinBlood_Age", "Lin_Age")
+#        predAge.array$DunedinPACE <- dunedin$DunedinPACE
         if (calcSeqClock == FALSE) {
             iAges <- c()
         }
