@@ -121,7 +121,7 @@ madrid <- function(bs, adult.age = 20, checkCov = TRUE, fastImpute = FALSE, imp 
         pred_t_age <- as.data.frame(pred_t_age)
         iAges <- c()
         for (i in 1:nrow(pred_t_age)) {
-	    ii <- inverse.transform( tAge = pred_t_age[i,"s1"], adult.age)
+	    ii <- inverse.transform( tAge = pred_t_age[i,1], adult.age)
 	    iAges <- rbind(iAges,ii)
         }
         iAges <- as.data.frame(iAges)
