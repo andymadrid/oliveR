@@ -1,4 +1,14 @@
+# Deprecated
+
+# We've been bought and sold - upgraded, if you will.
+
+# Go check out the new package
+[Here](https://github.com/andymadrid/MethylTraits)
+
+## I'm talking to myself here aren't I?
+
 # oliveR: an R package of DNA methylation microarray functionalities for sequencing-based data
+
 
 ## Welcome
 Hey, thanks for stopping on by! This is my first R package, so bear with me here.
